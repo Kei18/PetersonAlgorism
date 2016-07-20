@@ -58,7 +58,7 @@ class Peterson(object):
     # a^iの多項式を取得
     # =========================
     def get(self, i):
-        return self.F16[i % self.n]
+        return self.F16[i % self.n] if i is not -1 else 0
 
     # =========================
     # 多項式からa^iを取得
@@ -72,13 +72,14 @@ class Peterson(object):
     # シンドロームの取得
     # =========================
     def get_syndrome(self):
+        self.syndrome = []
         syndrome_exp = []
         for i in xrange(1, self.n-self.k+1):
             rx = [self.get((val+i*j) % self.n) if val != -1 else 0 for j, val in enumerate(self.input)]
             syndrome_exp.append(rx)
         for exp in syndrome_exp:
-            val = reduce(self.add, exp)
-            self.syndrome.append(self.get_num(val))
+            result = self.get_num(reduce(self.add, exp))
+            self.syndrome.append(result if result is not None else -1)
 
     # =========================
     # シンドロームを出力
@@ -91,6 +92,7 @@ class Peterson(object):
     # Qから誤り位置を取得する
     # =========================
     def get_error_pos(self):
+        self.error_pos = []
         for x in xrange(0, len(self.F16)):
             exp = 0
             for t in xrange(0, len(self.q)):
