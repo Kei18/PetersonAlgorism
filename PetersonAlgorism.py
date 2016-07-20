@@ -74,7 +74,7 @@ class Peterson(object):
     def get_syndrome(self):
         syndrome_exp = []
         for i in xrange(1, self.n-self.k+1):
-            rx = [self.get((val+i*j) % self.n) if val != 0 else 0 for j, val in enumerate(self.input)]
+            rx = [self.get((val+i*j) % self.n) if val != -1 else 0 for j, val in enumerate(self.input)]
             syndrome_exp.append(rx)
         for exp in syndrome_exp:
             val = reduce(self.add, exp)
@@ -109,7 +109,7 @@ class Peterson(object):
 
 if __name__ == '__main__':
     peterson = Peterson()
-    peterson.set_input([10, 0, 0, 0, 0, 10, 0, 11, 0, 15, 5, 13, 0, 14, 7])
+    peterson.set_input([10, -1, -1, -1, -1, 10, -1, 11, -1, 15, 5, 13, -1, 14, 7])
     # シンドロームを求める
     peterson.get_syndrome()
     peterson.print_syndrome()
