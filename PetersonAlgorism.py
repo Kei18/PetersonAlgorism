@@ -86,7 +86,7 @@ class Peterson(object):
     # =========================
     def print_syndrome(self):
         for i in xrange(0, len(self.syndrome)):
-            print 'S(%02d):' % (i+1), 'a^{0:02d} ='.format(self.syndrome[i]), self.get(self.syndrome[i])
+            print 'S(a^%02d) = ' % (i+1), 'a^{0:02d} ='.format(self.syndrome[i]), self.get(self.syndrome[i])
 
     # =========================
     # Qから誤り位置を取得する
@@ -106,7 +106,7 @@ class Peterson(object):
     # 誤り位置の出力
     # =========================
     def print_error_pos(self):
-        print "Error Postion : ", self.error_pos
+        print "Error Position : ", self.error_pos
 
 
 if __name__ == '__main__':
